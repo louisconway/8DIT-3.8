@@ -4,28 +4,46 @@ import requests, json
 API_KEY = "PK6VPNP2RHFM0XSYHB13"
 SECRET_KEY = "m1kvvD11jhqsFWVYyFp2d9tmvoZumMpIPZKBtCCg"
 BASE_URL = "https://paper-api.alpaca.markets"
-ACCOUNT_URL = "{}/v2/account".format(BASE_URL)
-ORDERS_URL = "{}/v2/orders".format(BASE_URL)
-HEADERS = {'APCA-API-KEY-ID': API_KEY, 'APCA-API-SECRET-KEY': SECRET_KEY}
 
-def get_account():
-    r = requests.get(ACCOUNT_URL, headers=HEADERS)
+api = tradeapi.REST (
+    base_url =BASE_URL,
+    key_id=API_KEY,
+    secret_key=SECRET_KEY
+)
 
-    return json.loads(r.content)
+class Trade:
+    def __init__(self):
+        self.symbol  = input("Enter Symbol:  ")
+        self.qty = input("Enter qty:  ")
+        trade = int(input("1 to buy. 2 to sell."))
+        if trade == 1:
+            self.buyOrder()
+        if trade == 2:
+            self.sellOrder()
 
-def create_order(symbol, qty, side, type, time_in_force):
-    data = {
-        "symbol": symbol,
-        "qty": qty,
-        "side": side,
-        "type": type,
-        "time_in_force": time_in_force
-    }
+    def buyOrder(self):
+        api.submit_order(
+            symbol=self.symbol,
+            qty=self.qty,
+            side="buy",
+            type="market",
+            time_in_force="gtc"
+        )
 
-    r = requests.post(ORDERS_URL, json=data, headers=HEADERS)
+    def sellOrder(self):
+        api.submit_order(
+            symbol=self.symbol,
+            qty=self.qty,
+            side="sell",
+            type="market",
+            time_in_force="gtc"
+        )
 
-    return json.loads(r.content)
+
+if __name__ == "__main__":
+    Trade()
 
 
-response = create_order("AAPL", 100, "buy", "market", "gtc")
-print(response)
+
+
+
