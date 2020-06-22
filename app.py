@@ -2,7 +2,8 @@ import alpaca_trade_api as tradeapi
 from alpha_vantage.timeseries import TimeSeries 
 from alpha_vantage.techindicators import TechIndicators
 import json
-import time
+import datetime
+import pandas as pd 
 
 
 # Alpaca Markets API Connection
@@ -17,8 +18,10 @@ api = tradeapi.REST (
 
 # Alpha Vantage API Connection
 alphaV_key = "PROU8P67UYAV1LB4"
-ts = TimeSeries(alphaV_key)
-ti = TechIndicators(alphaV_key)
+ts = TimeSeries(alphaV_key, output_format='pandas')
+ti = TechIndicators(alphaV_key, output_format='pandas')
+
+
 
 class Trade:
     def __init__(self):
@@ -32,17 +35,18 @@ class Trade:
         if trade == 3:
             self.monitor()
             
-            
+
             
 
     def monitor(self):
-        dailyData = ts.get_daily(symbol=self.symbol)
+        data, meta_data = ts.get_intraday(symbol=self.symbol, interval = '1min', outputsize = 'full')
+    
+        all_close_data = data['4. close']
 
-        currentRSI = ti.get_rsi(symbol=self.symbol, interval='1min', time_period=14, series_type='close')
-        print(currentRSI)
-
-
-
+        last_close = all_close_data[0]
+        print(all_close_data)
+        print(last_close)
+        
     def buyOrder(self):
         api.submit_order(
             symbol=self.symbol,
@@ -60,7 +64,6 @@ class Trade:
             type="market",
             time_in_force="gtc"
         )
-
 
 if __name__ == "__main__":
     Trade()
