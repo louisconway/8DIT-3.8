@@ -28,4 +28,4 @@ def on_close(ws):
 socket = "wss://data.alpaca.markets/stream"
 
 ws = websocket.WebSocketApp(socket, on_open=on_open, on_message=on_message, on_close=on_close)
-ws.run_forever()
+ws.run_forever()  
