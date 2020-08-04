@@ -1,9 +1,12 @@
 import alpaca_trade_api as tradeapi
 import websocket, json
+import math
 
 API_KEY = "PKY1PKW21RKW114OZ9KB"
 SECRET_KEY = "5QhGRqimBesWBA9z7I0pKiIKO1qZKD2ThMSdVcqG"
 
+
+var = "$100,000.00"
 
 def on_open(ws):
     print("opened")
