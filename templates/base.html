@@ -8,7 +8,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Trade Capital</a>
+        <a class="navbar-brand" href="{{ url_for('home') }}">Trade Capital</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -22,14 +22,63 @@
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('trade') }}">Trades</a>
             </li>
-
-
-
+            
           </ul>
         </div>
       </nav>
     {% block content %}
     {% endblock %}
+
+<footer class="page-footer font-small blue pt-4">
+  <div class="p-3 mb-2 bg-light text-dark">
+
+    <!-- Footer Links -->
+    <div class="container-fluid text-center text-md-left">
+      <!-- Grid row -->
+      <div class="row">
+        <!-- Grid column -->
+        <div class="col-md-6 mt-md-0 mt-3">
+          <!-- Content -->
+          <h5 class="text-uppercase">Trade Capital</h5>
+          <p>An investment with trade capital does not guarantee you will make money, only invest what you are willing and able to lose.</p>
+        </div>
+        <!-- Grid column -->
+        <hr class="clearfix w-100 d-md-none pb-3">
+        <!-- Grid column -->
+        <!-- Grid column -->
+        <div class="col-md-3 mb-md-0 mb-3">
+
+          <!-- Links -->
+          <h5 class="text-uppercase">Links</h5>
+
+          <ul class="list-unstyled">
+            <li>
+              <a target=_blank href="https://alpaca.markets">Alpaca API</a>
+            </li>
+            <li>
+              <a target=_blank href="https://finance.yahoo.com">Yahoo Finance</a>
+            </li>
+            <li>
+              <a href="{{ url_for('trade') }}">All Trades</a>
+            </li>
+            <li>
+              <a href="#!">Email: info@tradecapital.com</a>
+            </li>
+          </ul>
+
+        </div>
+        <!-- Grid column -->
+    </div>
+    <!-- Grid row -->
+
+  </div>
+  <!-- Footer Links -->
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2020 Copyright: Trade Capital Holdings</div>
+  <!-- Copyright -->
+  </div>
+</footer>
+
 </body>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

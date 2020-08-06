@@ -4,7 +4,9 @@ from app import *
 app = Flask(__name__)
 balance = 100
 
-equity = var
+equity = equity
+buying_power = buying_power
+
 
 @app.route("/")
 def home():
@@ -12,7 +14,7 @@ def home():
 
 @app.route("/trade")
 def trade():
-    return render_template("trade.html")
+    return render_template("trade.html", content=equity, power=buying_power, returns=return_7_days)
 
 
 if __name__ == "__main__":

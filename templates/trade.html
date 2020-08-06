@@ -2,8 +2,38 @@
 {%  block title %}Trade Page{% endblock %}
 {% block content %}
 <div class="trade">
-    <h1>Trade Page</h1>
-    <p>Hello world, Louis Conway is a boss </p>
+    <div class="col-xs-1" align="center">
+        <div class="w-75 p-3">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="card border-dark mb-3" style="max-width: 18rem;">
+                        <div class="card-header">Equity</div>
+                        <div class="card-body text-dark">
+                            <h5 class="card-title">{{content}}</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="card border-dark mb-3" style="max-width: 18rem;">
+                        <div class="card-header">Buying Power</div>
+                        <div class="card-body text-dark">
+                            <h5 class="card-title">{{power}}</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="card border-dark mb-3" style="max-width: 18rem;">
+                        <div class="card-header">7 Day Returns</div>
+                        <div class="card-body text-dark">
+                            <h5 class="card-title">{{returns}}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% endblock %}

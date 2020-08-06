@@ -6,7 +6,9 @@ API_KEY = "PKY1PKW21RKW114OZ9KB"
 SECRET_KEY = "5QhGRqimBesWBA9z7I0pKiIKO1qZKD2ThMSdVcqG"
 
 
-var = "$100,000.00"
+equity = "$100,000.00"
+buying_power = "$300,000.00"
+return_7_days = "44%"
 
 def on_open(ws):
     print("opened")
