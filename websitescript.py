@@ -1,15 +1,15 @@
 from flask import Flask, redirect, url_for, render_template
 from app import *
+import time
 
 app = Flask(__name__)
-balance = 100
-
-equity = equity
-buying_power = buying_power
 
 
+
+    
 @app.route("/")
 def home():
+    test()
     return render_template("index.html", content=equity)
 
 @app.route("/trade")
