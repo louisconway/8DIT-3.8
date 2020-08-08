@@ -16,6 +16,5 @@ def home():
 def trade():
     return render_template("trade.html", content=equity, power=buying_power, returns=return_7_days)
 
-
 if __name__ == "__main__":
     app.run(debug=True)
