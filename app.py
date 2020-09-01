@@ -1,20 +1,11 @@
 import alpaca_trade_api as tradeapi
-import websocket, json
 import math
 import time
+import quandl
+import websocket, json
 
 API_KEY = "PKY1PKW21RKW114OZ9KB"
 SECRET_KEY = "5QhGRqimBesWBA9z7I0pKiIKO1qZKD2ThMSdVcqG"
-
-
-def test():
-    print("test123")
-        
-
-
-equity = "$100,000.00"
-buying_power = "$300,000.00"
-return_7_days = "44%"
 
 def on_open(ws):
     print("opened")
@@ -29,6 +20,7 @@ def on_open(ws):
 
     ws.send(json.dumps(listen_message))
 
+
 def on_message(ws, message):
     print("received a message")
     print(message)
@@ -39,4 +31,4 @@ def on_close(ws):
 socket = "wss://data.alpaca.markets/stream"
 
 ws = websocket.WebSocketApp(socket, on_open=on_open, on_message=on_message, on_close=on_close)
-ws.run_forever()  
+ws.run_forever()
