@@ -1,34 +1,20 @@
-import alpaca_trade_api as tradeapi
-import math
-import time
-import quandl
-import websocket, json
-
-API_KEY = "PKY1PKW21RKW114OZ9KB"
-SECRET_KEY = "5QhGRqimBesWBA9z7I0pKiIKO1qZKD2ThMSdVcqG"
-
-def on_open(ws):
-    print("opened")
-    auth_data = {
-        "action": "authenticate",
-        "data": {"key_id": API_KEY, "secret_key": SECRET_KEY}
-    }
-
-    ws.send(json.dumps(auth_data))
-
-    listen_message = {"action": "listen", "data": {"streams": ["AM.TSLA"]}}
-
-    ws.send(json.dumps(listen_message))
+import pandas as pd
+from alpha_vantage.timeseries import TimeSeries
+from alpha_vantage.techindicators import TechIndicators
+import matplotlib.pyplot as plt
 
 
-def on_message(ws, message):
-    print("received a message")
-    print(message)
+api_key = "PROU8P67UYAV1LB4"
 
-def on_close(ws):
-    print("closed connection")
+ts = TimeSeries(key=api_key, output_format='pandas')
+data_ts, meta_data_ts = ts.get_intraday(symbol='MSFT', interval='1min', output='compact')
 
-socket = "wss://data.alpaca.markets/stream"
+period=60
 
-ws = websocket.WebSocketApp(socket, on_open=on_open, on_message=on_message, on_close=on_close)
-ws.run_forever()
+ti = TechIndicators(key=api_key, output_format="pandas")
+data_ti, meta_data_ti = ti.get_sma(symbol='MSFT', interval='1min',
+                                    time_period=period, series_type='close')
+
+df1 = data_ti
+df2 = data_ts['4. close'].iloc[period-1::]
+
