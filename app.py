@@ -13,7 +13,8 @@ class trade:
         self.company_name = company_name
 
         self.percentage_per_trade = 0.25
-
+        self.stop_loss_per = 0.99
+        self.take_prof_per = 1.04
 
         self.login()
         time.sleep(5)
@@ -22,6 +23,12 @@ class trade:
         self.account_balance()
         time.sleep(5)
         self.search()
+        time.sleep(5)
+        self.get_price()
+        time.sleep(5)
+        self.equity_management()
+        time.sleep(3)
+        self.buy()
 
     def login(self):
         # Working Well
@@ -34,13 +41,13 @@ class trade:
                 email_type = driver.find_element_by_xpath('/html/body/div[25]/div/div[2]/div[2]/div[1]/div/input')
                 email_type.send_keys('louis.conway123@gmail.com')
                 password_type = driver.find_element_by_xpath('/html/body/div[25]/div/div[2]/div[2]/div[2]/div/input')
-                password_type.send_keys('*****')
+                password_type.send_keys('Ld5gh3rr')
                 confirm_click = driver.find_element_by_xpath('//*[@id="l_overlay"]/div/div[2]/button')
                 confirm_click.click()
                 print("Logged In")
                 break
             except:
-                pass
+                print("trying...")
 
     def demo_account(self):
         while True:
@@ -54,10 +61,15 @@ class trade:
                 print("attempting to click")
 
     def account_balance(self):
-        self.equity = driver.find_element_by_xpath('/html/body/app-root/div/topbar/div/div[2]/balance-info/div/topbar-info/div/topbar-info-item[2]/div/div[2]/span').text
+        str_equity = driver.find_element_by_xpath('/html/body/app-root/div/topbar/div/div[2]/balance-info/div/topbar-info/div/topbar-info-item[2]/div/div[2]/span').text
+        temp = str_equity[1:]
+        temp_equity = temp.replace(",","")
+        self.equity = float(temp_equity)
         print(self.equity)
+
     
     def search(self):
+        # Searching the correct ticker
         print("search has started")
         while True:
             try:
@@ -80,19 +92,48 @@ class trade:
         else:
             print("Moving to next stock in list, unable to locate the correct stock")
 
-
+    def get_price(self):
         while True:
             try:   
-                self.current_price = driver.find_element_by_xpath('/html/body/app-root/div/left-side-panel/div[1]/div/div[2]/trade-view/div/div/div/trade-instruments-list/scroll-pane/div[1]/trade-instruments-button[1]/div/div[4]/div[1]/price-ticker2/div/span[1]').text
+                str_current_price = driver.find_element_by_xpath('/html/body/app-root/div/left-side-panel/div[1]/div/div[2]/trade-view/div/div/div/trade-instruments-list/scroll-pane/div[1]/trade-instruments-button[1]/div/div[4]/div[1]/price-ticker2/div/span[1]').text
+                self.current_price = float(str_current_price)
                 print(self.current_price)
-                time.sleep(10)
+                break
             except:
-                print("error")
+                pass
 
     def equity_management(self):
         self.trade_amount = self.equity * self.percentage_per_trade
         self.share_num = self.trade_amount / self.current_price
-        print(self.share_num)
+        self.stop_loss = self.current_price * self.stop_loss_per
+        self.take_profit = self.current_price * self.take_prof_per
+
+        
+        #self.loss_forcast = self.stop_loss * self.share_num
+        self.loss_forcast = 50.00
+        self.profit_forecast = self.take_profit * self.share_num
+
+
+        print("Trade Equity: {}".format(self.trade_amount))
+        print("Volume of Shares: {:.2f}".format(self.share_num))
+        print("Stop Loss: {}".format(self.stop_loss))
+        print("Take Profit: {}".format(self.take_profit))
+
+    def buy(self):
+        buy_selection_click = driver.find_element_by_xpath('/html/body/app-root/div/left-side-panel/div[1]/div/div[2]/trade-view/div/div[1]/div/trade-instruments-list/scroll-pane/div[1]/trade-instruments-button[1]/div/div[4]/div[2]')
+        buy_selection_click.click()
+
+        while True:
+            try:
+                #Summit Trade
+                buy_button_click = driver.find_element_by_xpath('/html/body/app-root/div/left-side-panel/div[1]/div/div[2]/trade-view/trade-side-panel/div/div/div[3]/trade-deal-ticket/place-order/div/div[1]/div')
+                buy_button_click.click() 
+                print("done :)")
+                break      
+            except:
+                print("attempting to click the button")
+    def sell(self):
+        pass
 
 class screener:
     def __init__(self, url):
@@ -110,7 +151,7 @@ class screener:
                 view_all.click()
                 break
             except:
-                print("View All failed")
+                print("View all failed")
 
         while True:
             try:
